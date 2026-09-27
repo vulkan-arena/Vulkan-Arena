@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BATTLE//ARENA | Cyber Esports</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyber: { bg: '#05050A', surface: '#0D0D16', border: '#1F1B36', accent: '#8B5CF6', neon: '#D946EF', success: '#10B981', alert: '#F43F5E' }
+          },
+          fontFamily: { sans: ['Rajdhani', 'sans-serif'], display: ['Syncopate', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #05050A; color: #FFFFFF; -webkit-tap-highlight-color: transparent; }
+    .glass-panel { background: rgba(13, 13, 22, 0.7); backdrop-filter: blur(12px); border: 1px solid #1F1B36; }
+    .cyber-gradient { background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%); }
+    .neon-text { text-shadow: 0 0 10px rgba(217, 70, 239, 0.5); }
+    .cut-corner { clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .view-section { display: none; animation: fadeIn 0.3s ease-out; }
+    .view-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col pb-20 md:pb-0 font-sans">
+
+  <!-- TOP NAVIGATION -->
+  <header class="sticky top-0 z-50 glass-panel border-b-0 border-cyber-border">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="app.navigate('home')">
+        <div class="w-8 h-8 cyber-gradient cut-corner flex items-center justify-center font-display font-bold text-xs text-white">B/A</div>
+        <span class="font-display font-bold text-sm tracking-widest hidden sm:block">BATTLE//ARENA</span>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <button onclick="app.toggleAdmin()" class="px-3 py-1 text-xs font-bold border border-cyber-accent text-cyber-accent hover:bg-cyber-accent hover:text-white transition rounded">ADMIN MODE</button>
+        <div class="w-8 h-8 rounded-full bg-cyber-surface border border-cyber-border flex items-center justify-center overflow-hidden">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Abhinav" alt="Profile">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-grow max-w-7xl mx-auto w-full p-4 md:p-6">
+
+    <!-- HOME VIEW -->
+    <section id="view-home" class="view-section active space-y-8">
+      <!-- Hero -->
+      <div class="relative w-full h-[400px] rounded-2xl overflow-hidden border border-cyber-border flex items-center p-6 md:p-12">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-cyber-bg via-cyber-bg/80 to-transparent"></div>
+        <div class="relative z-10 max-w-2xl space-y-4">
+          <span class="px-3 py-1 bg-cyber-neon/20 text-cyber-neon border border-cyber-neon/50 text-xs font-bold tracking-widest rounded-full">SEASON 01 LIVE</span>
+          <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight uppercase neon-text">Enter The<br>Arena.</h1>
+          <p class="text-gray-400 text-sm md:text-base font-medium max-w-md">Compete in verified Free Fire MAX tournaments. Squad up, secure the custom room credentials, and climb the regional leaderboard.</p>
+          <div class="pt-4 flex gap-4">
+            <button onclick="app.navigate('explore')" class="px-6 py-3 cyber-gradient cut-corner font-bold text-sm tracking-wider hover:opacity-90 transition">EXPLORE EVENTS</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Categories (No Typing Required) -->
+      <div>
+        <h3 class="font-display text-lg font-bold mb-4 uppercase text-gray-300">Format Selection</h3>
+        <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+          <button onclick="app.filterAndNavigate('BR')" class="whitespace-nowrap px-5 py-3 glass-panel hover:border-cyber-accent transition rounded-lg text-sm font-bold flex flex-col items-start gap-1 min-w-[140px]">
+            <span class="text-cyber-accent text-xs tracking-widest">BATTLE ROYALE</span>
+            <span>Squad 4v48</span>
+          </button>
+          <button onclick="app.filterAndNavigate('CS')" class="whitespace-nowrap px-5 py-3 glass-panel hover:border-cyber-accent transition rounded-lg text-sm font-bold flex flex-col items-start gap-1 min-w-[140px]">
+            <span class="text-cyber-neon text-xs tracking-widest">CLASH SQUAD</span>
+            <span>Tactical 4v4</span>
+          </button>
+          <button onclick="app.filterAndNavigate('SOLO')" class="whitespace-nowrap px-5 py-3 glass-panel hover:border-cyber-accent transition rounded-lg text-sm font-bold flex flex-col items-start gap-1 min-w-[140px]">
+            <span class="text-gray-400 text-xs tracking-widest">BATTLE ROYALE</span>
+            <span>Solo Survival</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLORE TOURNAMENTS VIEW -->
+    <section id="view-explore" class="view-section space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <h2 class="font-display text-2xl font-bold uppercase">Tournament Directory</h2>
+        
+        <!-- Filter Chips -->
+        <div class="flex gap-2 overflow-x-auto hide-scrollbar">
+          <button class="px-4 py-1.5 rounded-full bg-cyber-accent text-white text-xs font-bold">ALL</button>
+          <button class="px-4 py-1.5 rounded-full border border-cyber-border text-gray-400 hover:text-white text-xs font-bold">BR SQUAD</button>
+          <button class="px-4 py-1.5 rounded-full border border-cyber-border text-gray-400 hover:text-white text-xs font-bold">CS SQUAD</button>
+          <button class="px-4 py-1.5 rounded-full border border-cyber-border text-gray-400 hover:text-white text-xs font-bold">FREE ENTRY</button>
+        </div>
+      </div>
+
+      <div id="tournament-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- MY MATCHES & ROOM CREDENTIALS VIEW -->
+    <section id="view-matches" class="view-section space-y-6">
+      <div>
+        <h2 class="font-display text-2xl font-bold uppercase mb-1">Active Operations</h2>
+        <p class="text-gray-400 text-sm">Room credentials are securely locked until the organizer releases the match.</p>
+      </div>
+
+      <div id="my-matches-container" class="space-y-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD (Simulator) -->
+    <section id="view-admin" class="view-section space-y-6">
+      <div class="glass-panel p-6 border-cyber-accent/50">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-2xl">⚡</span>
+          <div>
+            <h2 class="font-display text-xl font-bold uppercase text-cyber-accent">Admin Command Center</h2>
+            <p class="text-xs text-gray-400">Simulate backend state changes (Testing Only)</p>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="p-4 bg-cyber-bg rounded border border-cyber-border">
+            <h4 class="text-sm font-bold uppercase mb-3 text-gray-300">Match BA-042 (Registered User)</h4>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="app.setMatchState('BA-042', 'REGISTRATION')" class="px-3 py-1.5 text-xs font-bold bg-cyber-surface border border-cyber-border hover:bg-gray-800 rounded">1. Registration</button>
+              <button onclick="app.setMatchState('BA-042', 'CHECK_IN')" class="px-3 py-1.5 text-xs font-bold bg-cyber-surface border border-cyber-border hover:bg-gray-800 rounded">2. Check-in Open</button>
+              <button onclick="app.setMatchState('BA-042', 'ROOM_READY')" class="px-3 py-1.5 text-xs font-bold bg-cyber-accent text-white rounded">3. Release Room Credentials</button>
+              <button onclick="app.setMatchState('BA-042', 'LIVE')" class="px-3 py-1.5 text-xs font-bold bg-cyber-alert text-white rounded">4. Match Live</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t border-cyber-border z-50 flex justify-around items-center h-16 px-2 pb-safe">
+    <button onclick="app.navigate('home')" class="nav-btn flex flex-col items-center gap-1 w-16" data-target="home">
+      <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+      <span class="text-[10px] font-bold text-gray-500">HOME</span>
+    </button>
+    <button onclick="app.navigate('explore')" class="nav-btn flex flex-col items-center gap-1 w-16" data-target="explore">
+      <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      <span class="text-[10px] font-bold text-gray-500">EXPLORE</span>
+    </button>
+    <button onclick="app.navigate('matches')" class="nav-btn flex flex-col items-center gap-1 w-16" data-target="matches">
+      <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <span class="text-[10px] font-bold text-gray-500">MATCHES</span>
+    </button>
+  </nav>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    const app = {
+      state: {
+        activeView: 'home',
+        isAdminMode: false,
+        user: { registeredMatches: ['BA-042'] }, // User is pre-registered to BA-042 for demo
+        tournaments: [
+          {
+            id: 'BA-042',
+            title: 'Neon Clash Series #4',
+            game: 'Free Fire MAX',
+            mode: 'Clash Squad (4v4)',
+            map: 'Bermuda',
+            time: 'Today, 20:00 IST',
+            slots: '8 / 16',
+            status: 'REGISTRATION', // States: REGISTRATION, CHECK_IN, ROOM_READY, LIVE
+            roomId: '94817264',
+            roomPass: 'vulkan99'
+          },
+          {
+            id: 'BA-088',
+            title: 'Survival Apex Qualifier',
+            game: 'Free Fire MAX',
+            mode: 'Battle Royale (Squad)',
+            map: 'Purgatory',
+            time: 'Tomorrow, 18:00 IST',
+            slots: '42 / 48',
+            status: 'REGISTRATION',
+            roomId: 'LOCKED',
+            roomPass: 'LOCKED'
+          }
+        ]
+      },
+
+      init() {
+        this.renderExplore();
+        this.renderMatches();
+        this.updateNavUI();
+      },
+
+      navigate(viewId) {
+        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+        document.getElementById(`view-${viewId}`).classList.add('active');
+        this.state.activeView = viewId;
+        this.updateNavUI();
+        window.scrollTo(0,0);
+      },
+
+      filterAndNavigate(filterStr) {
+        this.navigate('explore');
+        // In a real app, this would apply the filter to the state and re-render.
+      },
+
+      updateNavUI() {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          const icon = btn.querySelector('svg');
+          const text = btn.querySelector('span');
+          if (btn.dataset.target === this.state.activeView) {
+            icon.classList.replace('text-gray-500', 'text-cyber-accent');
+            text.classList.replace('text-gray-500', 'text-cyber-accent');
+          } else {
+            icon.classList.replace('text-cyber-accent', 'text-gray-500');
+            text.classList.replace('text-cyber-accent', 'text-gray-500');
+          }
+        });
+      },
+
+      toggleAdmin() {
+        this.state.isAdminMode = !this.state.isAdminMode;
+        if (this.state.isAdminMode) this.navigate('admin');
+        else this.navigate('home');
+      },
+
+      setMatchState(id, newState) {
+        const match = this.state.tournaments.find(t => t.id === id);
+        if (match) {
+          match.status = newState;
+          this.renderExplore();
+          this.renderMatches();
+          alert(`SYSTEM: Match ${id} advanced to ${newState}`);
+        }
+      },
+
+      copyToClipboard(text, btnElement) {
+        navigator.clipboard.writeText(text);
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "COPIED";
+        btnElement.classList.add('bg-cyber-success', 'text-white', 'border-cyber-success');
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.classList.remove('bg-cyber-success', 'text-white', 'border-cyber-success');
+        }, 2000);
+      },
+
+      renderExplore() {
+        const container = document.getElementById('tournament-grid');
+        container.innerHTML = this.state.tournaments.map(t => `
+          <div class="glass-panel p-5 rounded-xl flex flex-col relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-3 opacity-10 font-display text-4xl font-bold pointer-events-none">${t.mode.includes('Clash') ? 'CS' : 'BR'}</div>
+            
+            <div class="flex justify-between items-start mb-4 relative z-10">
+              <span class="px-2 py-1 bg-cyber-bg border border-cyber-border rounded text-[10px] font-bold text-gray-400 tracking-wider">${t.mode}</span>
+              ${t.status === 'LIVE' ? '<span class="text-[10px] font-bold text-cyber-alert animate-pulse">● LIVE</span>' : ''}
+            </div>
+            
+            <h3 class="font-display font-bold text-lg leading-tight mb-2 relative z-10">${t.title}</h3>
+            
+            <div class="grid grid-cols-2 gap-3 mt-auto relative z-10 text-xs">
+              <div>
+                <span class="block text-gray-500 mb-0.5">Map</span>
+                <span class="font-bold">${t.map}</span>
+              </div>
+              <div>
+                <span class="block text-gray-500 mb-0.5">Start Time</span>
+                <span class="font-bold">${t.time}</span>
+              </div>
+            </div>
+            
+            <button class="mt-5 w-full py-3 cut-corner bg-cyber-surface border border-cyber-border text-sm font-bold tracking-widest hover:border-cyber-accent transition">
+              ${this.state.user.registeredMatches.includes(t.id) ? 'ALREADY REGISTERED' : 'VIEW & REGISTER'}
+            </button>
+          </div>
+        `).join('');
+      },
+
+      renderMatches() {
+        const container = document.getElementById('my-matches-container');
+        const activeMatches = this.state.tournaments.filter(t => this.state.user.registeredMatches.includes(t.id));
+        
+        container.innerHTML = activeMatches.map(t => {
+          const isReleased = t.status === 'ROOM_READY' || t.status === 'LIVE';
+          
+          return `
+          <div class="glass-panel rounded-xl overflow-hidden border ${isReleased ? 'border-cyber-success/50' : 'border-cyber-border'}">
+            <!-- Header -->
+            <div class="p-5 border-b border-cyber-border flex justify-between items-center bg-cyber-bg">
+              <div>
+                <span class="text-xs text-cyber-accent font-bold tracking-widest block mb-1">MATCH ID: ${t.id}</span>
+                <h3 class="font-display font-bold text-xl">${t.title}</h3>
+              </div>
+              <div class="text-right">
+                <span class="px-3 py-1 rounded bg-cyber-surface text-xs font-bold border border-cyber-border">${t.status.replace('_', ' ')}</span>
+              </div>
+            </div>
+
+            <!-- Vault Section (Zero Trust Simulation) -->
+            <div class="p-6 bg-cyber-bg/50">
+              <div class="flex items-center justify-between mb-4">
+                <h4 class="font-display text-sm font-bold text-gray-300">CUSTOM ROOM VAULT</h4>
+                <span class="text-xs font-bold ${isReleased ? 'text-cyber-success' : 'text-cyber-alert'}">${isReleased ? '🔓 CREDENTIALS RELEASED' : '🔒 LOCKED BY ADMIN'}</span>
+              </div>
+
+              ${isReleased ? `
+                <!-- Unlocked View -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="p-4 border border-cyber-border rounded bg-cyber-surface flex justify-between items-center">
+                    <div>
+                      <span class="block text-[10px] text-gray-500 font-bold mb-1">ROOM ID</span>
+                      <span class="font-display text-xl tracking-widest font-bold">${t.roomId}</span>
+                    </div>
+                    <button onclick="app.copyToClipboard('${t.roomId}', this)" class="px-3 py-1.5 text-xs font-bold border border-cyber-border rounded hover:bg-gray-800">COPY</button>
+                  </div>
+                  
+                  <div class="p-4 border border-cyber-border rounded bg-cyber-surface flex justify-between items-center">
+                    <div>
+                      <span class="block text-[10px] text-gray-500 font-bold mb-1">PASSWORD</span>
+                      <span class="font-display text-xl tracking-widest font-bold text-cyber-neon">${t.roomPass}</span>
+                    </div>
+                    <button onclick="app.copyToClipboard('${t.roomPass}', this)" class="px-3 py-1.5 text-xs font-bold border border-cyber-border rounded hover:bg-gray-800">COPY</button>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-4">⚠️ Open Free Fire MAX > Custom > Search ID > Enter Password. Take a screenshot of your final placement.</p>
+                
+                ${t.status === 'LIVE' ? `
+                  <button class="mt-4 w-full py-3 bg-cyber-accent text-white font-bold text-sm tracking-widest cut-corner">SUBMIT MATCH RESULT</button>
+                ` : ''}
+
+              ` : `
+                <!-- Locked View -->
+                <div class="p-6 border border-dashed border-cyber-border rounded bg-cyber-bg text-center">
+                  <p class="text-sm text-gray-400 font-medium">Credentials will automatically appear here once the organizer opens the lobby in Free Fire MAX.</p>
+                  <p class="text-xs text-gray-500 mt-2">Current Phase: ${t.status}. Awaiting ROOM_READY phase.</p>
+                </div>
+              `}
+            </div>
+          </div>
+        `}).join('');
+      }
+    };
+
+    // Initialize App
+    document.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
